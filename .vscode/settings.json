@@ -5,11 +5,11 @@
     },
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 180,
-    "editor.formatOnSave": true,
     "editor.wrappingIndent": "indent",
     "files.trimTrailingWhitespace": true,
     "python.pythonPath": "/usr/local/bin/python",
     "python.linting.flake8Enabled": true,
     "python.testing.pytestEnabled": true,
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "autopep8",
+    "editor.formatOnPaste": false
 }
