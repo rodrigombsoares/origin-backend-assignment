@@ -1,0 +1,22 @@
+{
+  "name": "FastAPI Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  // "service": "app",
+  // "runServices":["app"],
+  // "workspaceFolder": "/home/vscode/workspace",
+  "settings": {
+    "terminal.integrated.shell.linux": "/usr/bin/fish"
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-azuretools.vscode-docker",
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint"
+  ],
+  "forwardPorts": [
+    8000
+  ]
+}
