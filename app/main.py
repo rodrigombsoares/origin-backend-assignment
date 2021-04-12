@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import Depends, FastAPI
 
-from controllers import router
+from app.controllers import router
 
 app = FastAPI()
 

@@ -30,7 +30,7 @@ class Vehicle(TypedDict):
     )
 
 
-class UserInformation(BaseModel):
+class UserInformationDTO(BaseModel):
     age: int = Field(
         ...,
         ge=0,
