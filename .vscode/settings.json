@@ -11,5 +11,9 @@
     "python.linting.flake8Enabled": true,
     "python.testing.pytestEnabled": true,
     "python.formatting.provider": "autopep8",
-    "editor.formatOnPaste": false
+    "editor.formatOnPaste": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--enable=W0614"
+    ]
 }

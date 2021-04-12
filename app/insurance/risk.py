@@ -14,11 +14,12 @@ class InsuranceRiskLine:
 class UserRisk:
 
     def __init__(self, user_info: UserInformationDTO) -> None:
-        base = sum([1 if x else 0 for x in user_info.risk_questions])
-        self.auto = InsuranceRiskLine(base, True)
-        self.disability = InsuranceRiskLine(base, True)
-        self.home = InsuranceRiskLine(base, True)
-        self.life = InsuranceRiskLine(base, True)
+        # Calculate base risk from user_info risk_questions
+        base_risk = sum([1 if x else 0 for x in user_info.risk_questions])
+        self.auto = InsuranceRiskLine(base_risk, True)
+        self.disability = InsuranceRiskLine(base_risk, True)
+        self.home = InsuranceRiskLine(base_risk, True)
+        self.life = InsuranceRiskLine(base_risk, True)
 
     def _score_from_risk_line(self, line: InsuranceRiskLine) -> ScoreEnum:
         if not line.is_eligible:

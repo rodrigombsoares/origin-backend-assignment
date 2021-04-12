@@ -8,7 +8,7 @@ class HasDependents(BaseRule):
         self,
         user_info: UserInformationDTO,
         user_risk: UserRisk
-    ) -> str:
+    ) -> UserRisk:
         if user_info.dependents:
             user_risk.disability.risk += 1
             user_risk.life.risk += 1

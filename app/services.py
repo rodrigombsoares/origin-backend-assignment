@@ -1,5 +1,6 @@
 from app.dto.insurance import InsuranceDTO
 from app.dto.user import UserInformationDTO
+
 from app.insurance.risk import UserRisk
 from app.insurance.rules.age import (
     AgeOverSixty,

@@ -8,7 +8,7 @@ class IsMaried(BaseRule):
         self,
         user_info: UserInformationDTO,
         user_risk: UserRisk
-    ) -> str:
+    ) -> UserRisk:
         if user_info.marital_status == "married":
             user_risk.life.risk += 1
             user_risk.disability.risk -= 1

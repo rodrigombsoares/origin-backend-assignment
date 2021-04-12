@@ -8,7 +8,7 @@ class AgeOverSixty(BaseRule):
         self,
         user_info: UserInformationDTO,
         user_risk: UserRisk
-    ) -> str:
+    ) -> UserRisk:
         if user_info.age > 60:
             user_risk.disability.is_eligible = False
             user_risk.life.is_eligible = False
@@ -20,7 +20,7 @@ class AgeUnderThirty(BaseRule):
         self,
         user_info: UserInformationDTO,
         user_risk: UserRisk
-    ) -> str:
+    ) -> UserRisk:
         if user_info.age < 30:
             user_risk.disability.risk -= 2
             user_risk.auto.risk -= 2
@@ -34,7 +34,7 @@ class AgeBetweenThirtyAndForty(BaseRule):
         self,
         user_info: UserInformationDTO,
         user_risk: UserRisk
-    ) -> str:
+    ) -> UserRisk:
         if user_info.age >= 30 and user_info.age < 40:
             user_risk.disability.risk -= 1
             user_risk.auto.risk -= 1
