@@ -59,7 +59,7 @@ The core of the project is its rules engine.
 
 #### Some Alternatives
 
-The naive approach to applying a series of rules to a piece of data stored as a UserInfo object, for example, would be a lot of ugly conditional logic. This, of course, wouldn't be extensible. To make it more extensible and maintainable, every if/else could belong to a method inside UserInfo, but it would violate the Single Responsibility and Open-Closed Principle (making it hard to extend).
+The naive approach to applying a series of rules to a piece of data stored as a UserInfo object, for example, would be a lot of ugly conditional logic. This, of course, wouldn't be extensible. To make it more maintainable, every condition could have its own method inside UserInfo, but it would violate the Single Responsibility and Open-Closed Principle (still not extensible).
 
 #### Final Approach
 
