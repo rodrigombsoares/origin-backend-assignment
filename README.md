@@ -87,7 +87,7 @@ risk = rules.apply_rule(user_info, base_risk)
 
 ### Risk Object
 
-A `Risk` object stores the risks for every insurance line by setting its properties as `InsuranceRiskLine` objects. `InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line. The implementation is located at [risk](./app/insurance/risk.py') inside the insurance module
+A `Risk` object stores the risks for every insurance line by setting its properties as `InsuranceRiskLine` objects. `InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line. The implementation is located at [risk](./app/insurance/risk.py) inside the insurance module
 
 ### Testing endpoints
 
