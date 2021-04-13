@@ -59,15 +59,16 @@ The core of the project is its rules engine.
 
 #### Some Alternatives
 
-The naive approach to applying a series of rules to a piece of data stored as a UserInfo object, for example, would be a lot of ugly conditional logic. This, of course, wouldn't be extensible. To make it more maintainable, every condition could have its own method inside UserInfo, but it would violate the Single Responsibility and Open-Closed Principle (still not extensible).
+The naive approach to applying a series of rules to a piece of data would be a lot of ugly conditional logic. This, of course, wouldn't be extensible. To make it more maintainable, information could be stored in a `UserInfo` object and every condition could have its own method inside `UserInfo`, but it would violate the Single Responsibility and Open-Closed Principle (still not extensible).
 
 #### Final Approach
 
-The Rules Engine was build based on the behavioral pattern Chain of Responsibility where every rule is an object derived from the `BaseRule` class that can handle requests.
+The Rules Engine was built based on the behavioral pattern Chain of Responsibility where every rule is an object derived from the `BaseRule` class that can handle requests.
 
 ![Chain of responsability](https://refactoring.guru/images/patterns/cards/chain-of-responsibility-mini.png?id=36d85eba8d14986f0531)
 
-A `Rule` object has an `apply_rule(self, user_info, user_risk)` that handles the request by applying its own rules. To create a new rule simply create a new class extending `BaseRule` and add the rule to the chain. In this project, the chain is instantiated in `services.py`, and for readability, the pipe operator (or) was overloaded so that chaining can be written as below:
+A `Rule` object has an `apply_rule(self, user_info, user_risk)` method that handles the request by applying its own rules.   
+To create a new rule simply create a new class extending `BaseRule` and add it to the chain. In this project, the chain is instantiated in `services.py`, and for readability, the pipe operator (or) was overloaded so that chaining can be written as below:
 
 ```python
 import AgeOverSixty, AgeUnderThirty, AgeBetweenThirtyAndForty
@@ -87,7 +88,28 @@ risk = rules.apply_rule(user_info, base_risk)
 
 ### Risk Object
 
-A `Risk` object stores the risks for every insurance line by setting its properties as `InsuranceRiskLine` objects. `InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line. The implementation is located at [risk](./app/insurance/risk.py) inside the insurance module
+A `Risk` object stores the risks for every insurance line by setting its properties as `InsuranceRiskLine` objects. `InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line. The implementation is located at [risk](./app/insurance/risk.py) inside the insurance module. It's JSON representation would be:
+
+```JSON
+{
+    "auto": {
+        "risk": 2,
+        "is_eligible": true
+    },
+    "disability": {
+        "risk": 3,
+        "is_eligible": false
+    },
+    "home": {
+        "risk": 0,
+        "is_eligible": true
+    },
+    "life": {
+        "risk": 2,
+        "is_eligible": true
+    },
+}
+```
 
 ### Testing endpoints
 
