@@ -15,7 +15,16 @@ from app.insurance.rules.vehicle import HasNoVehicle, HasNewVehicle
 
 
 def get_insurance_score(user_info: UserInformationDTO) -> InsuranceDTO:
+    """
+    Set rules in the pipeline using the | (pipe operator) to chain
+    so that
+        AgeUnderThirty(AgeOverSixty())
+    is equivalent to
+        AgeOverSixty() | AgeUnderThirty
+    """
+    # Risk lines are stored using a UserRisk object
     base_risk = UserRisk(user_info)
+    # Rules are chained to be applied, add or remove rules here
     rules = (AgeOverSixty()
              | AgeUnderThirty
              | AgeBetweenThirtyAndForty

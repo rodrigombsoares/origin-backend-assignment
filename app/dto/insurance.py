@@ -16,6 +16,7 @@ class ScoreEnum(str, Enum):
 
 
 class InsuranceDTO(BaseModel):
+    """Response DTO for insurance lines scores"""
     auto: ScoreEnum
     disability: ScoreEnum
     home: ScoreEnum

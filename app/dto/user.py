@@ -31,6 +31,9 @@ class Vehicle(TypedDict):
 
 
 class UserInformationDTO(BaseModel):
+    """ User information DTO for request.
+    Contains all user information
+    """
     age: int = Field(
         ...,
         ge=0,
