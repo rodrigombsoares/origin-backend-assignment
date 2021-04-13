@@ -1,6 +1,6 @@
 # Origin Backend Take-Home Assignment
 
-This project was developed as an assignment for [Origin](https://www.useorigin.com/) based on the following [requirements](https://github.com/OriginFinancial/origin-backend-take-home-assignment). It consists on an REST API built using FastAPI that runs a simple Rules Engine to determine the user’s insurance risks from personal information information like age, vehicle and house.
+This project was developed as an assignment for [Origin](https://www.useorigin.com/), based on the following [requirements](https://github.com/OriginFinancial/origin-backend-take-home-assignment). It consists of a REST API built using FastAPI that runs a simple Rules Engine to determine the user’s insurance risks from personal information like age, vehicle, and house.
 
 ## Run
 
@@ -10,7 +10,7 @@ To run use docker-compose:
 docker-compose up
 ```
 
-or build the container and run using:
+or build and run the container using:
 
 ```sh
 docker build . -t origin-takehome
@@ -21,6 +21,7 @@ docker run -p 8000:8000 origin-takehome
 
 The Swagger UI Documentation is located at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) and consists of a single endpoint.
 
+![Swagger UI](./docs/swagger.png)
 ### Insurance
 
 This endpoint is responsible for receiving an input containing the user information, like:
@@ -37,7 +38,7 @@ This endpoint is responsible for receiving an input containing the user informat
 }
 ```
 
-And responding with risk scores for each insurance line as seen bellow:
+And responding with risk scores for each insurance line as seen below:
 
 ```JSON
 {
@@ -58,17 +59,15 @@ The core of the project is its rules engine.
 
 #### Some Alternatives
 
-The naive approach to applying a series of rules to a piece of data stored as UserInfo object, for example, would be a lot of ugly conditional logic. This, of course, wouldn't be extensible.
-To make it more extensible and maintainable, every if/else could belong to a method inside UserInfo, but it would violate Single Responsibility and Open Close Principle (manking it hard to extend).
+The naive approach to applying a series of rules to a piece of data stored as a UserInfo object, for example, would be a lot of ugly conditional logic. This, of course, wouldn't be extensible. To make it more extensible and maintainable, every if/else could belong to a method inside UserInfo, but it would violate the Single Responsibility and Open-Closed Principle (making it hard to extend).
 
 #### Final Approach
 
-The Rules Engine was build based on the behavioral pattern Chain of Responsibility where every rule is an object derived from `BaseRule` class that can handle requests.
+The Rules Engine was build based on the behavioral pattern Chain of Responsibility where every rule is an object derived from the `BaseRule` class that can handle requests.
 
 ![Chain of responsability](https://refactoring.guru/images/patterns/cards/chain-of-responsibility-mini.png?id=36d85eba8d14986f0531)
 
-A Rule object has a `apply_rule(self, user_info, user_risk)` that handles the request by applying it's own rules. To create a new rule simply create a new class extending `BaseRule` and add the rule to the chain.
-In this project, the chain is instantiated in `services.py`, and for readability the pipe operator (or) was overloaded so that chaining can be writen as bellow:
+A `Rule` object has an `apply_rule(self, user_info, user_risk)` that handles the request by applying its own rules. To create a new rule simply create a new class extending `BaseRule` and add the rule to the chain. In this project, the chain is instantiated in `services.py`, and for readability, the pipe operator (or) was overloaded so that chaining can be written as below:
 
 ```python
 import AgeOverSixty, AgeUnderThirty, AgeBetweenThirtyAndForty
@@ -79,7 +78,7 @@ rules = (AgeOverSixty()
         )
 ```
 
-And rules are executed for a UserInfoDTO object, containing all the user information received. Using a UserRisk object to store the risks for insurance lines. As seen:
+And rules are executed for a `UserInfoDTO` object, containing all the user information received. Using a `UserRisk` object to store the risks for insurance lines. As seen:
 
 ```python
 base_risk = UserRisk(user_info)
@@ -88,13 +87,11 @@ risk = rules.apply_rule(user_info, base_risk)
 
 ### Risk Object
 
-A `Risk` object stores the risks for every insurance line by setting it's properties as `InsuranceRiskLine` objects.
-`InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line.
-The implementation is located at [risk](app/insurance/risk) inside the insurance module
+A `Risk` object stores the risks for every insurance line by setting its properties as `InsuranceRiskLine` objects. `InsuranceRiskLine` has two parameters: `risk` and `is_eligible` to store the risk points and eligibility of a given line. The implementation is located at [risk](./app/insurance/risk.py') inside the insurance module
 
 ### Testing endpoints
 
-Each endpoint is tested end to end, given an input and expecting an output. FastAPI generates a testing client which can be used to make requests.
+Each endpoint is tested end to end, provided input, and expecting an output. FastAPI generates a testing client which can be used to make requests.
 
 ### Unit Testing Rules
 
