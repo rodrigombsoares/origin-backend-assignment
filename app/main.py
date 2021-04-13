@@ -3,7 +3,11 @@ from fastapi import Depends, FastAPI
 
 from app.controllers import router
 
-app = FastAPI()
+app = FastAPI(
+    title="Origin Backend",
+    description="Project designed as Origin's take-home assignment",
+    version="1.0.0",
+)
 
 app.include_router(router)
 

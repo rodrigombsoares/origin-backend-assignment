@@ -28,15 +28,15 @@ class BaseRule(RuleInterface):
         user_info: UserInformationDTO,
         user_risk: UserRisk
     ) -> UserRisk:
-    """ Apply rule in a chain setting user_risk based on user_info
+        """ Apply rule in a chain setting user_risk based on user_info
 
-    Args:
-        user_info: An object containing user information
-        user_risk: An object containing user risk lines
+        Args:
+            user_info: An object containing user information
+            user_risk: An object containing user risk lines
 
-    Returns:
-        An user risk object
-    """
+        Returns:
+            An user risk object
+        """
         if self.next_rule:
             return self.next_rule.apply_rule(user_info, user_risk)
         return user_risk
